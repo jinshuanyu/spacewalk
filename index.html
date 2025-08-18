@@ -1,14 +1,15 @@
 <!DOCTYPE html>
+
 <html lang="zh-TW">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spacewalk 太空漫遊</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <!-- Tone.js library for sound effects -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script> 
-    <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Spacewalk 太空漫遊</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Tone.js library for sound effects -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
+<style>
         body {
             font-family: 'Inter', sans-serif;
             background: linear-gradient(to bottom right, #000033, #000000); /* Deep space background */
@@ -551,165 +552,161 @@
                 font-size: 1.3rem; 
             }
         }
-    </style>
+    
+/* === Two-column layout for larger screens === */
+#responsive-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.left-column, .right-column { min-width: 0; }
+
+@media (min-width: 900px) {
+  #responsive-layout {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .left-column {
+    flex: 0 0 40%;
+    max-width: 40%;
+  }
+  .right-column {
+    flex: 1 1 60%;
+    max-width: 60%;
+  }
+}
+
+#game-title {
+  margin-bottom: 12px;
+}
+@media (min-width: 900px) {
+  #game-title {
+    text-align: left;
+  }
+}
+</style>
 </head>
 <body>
-    <div class="game-container">
-        <h1 class="text-3xl font-bold text-center mb-6 text-yellow-300">🌌 太空漫遊 🚀</h1>
+<div class="game-container">
 
-        <!-- Player Selection and Game Start -->
-        <div id="start-screen" class="flex flex-col items-center gap-4 mb-6">
-            <p id="player-count-label" class="text-xl text-blue-200">請選擇玩家人數：</p>
-            <select id="player-count-select" class="p-2 rounded-lg bg-gray-700 text-white">
-                <option value="2" selected>2 位玩家</option> <!-- Default to 2 players -->
-                <option value="3">3 位玩家</option>
-                <option value="4">4 位玩家</option>
-            </select>
-            <button id="start-game-btn" class="btn-green">
-                <span class="btn-action-text">開始遊戲 <span class="btn-action-emoji">🚀</span></span>
-            </button>
-            <button id="show-rules-btn" class="btn-info">
-                <span class="btn-action-text">遊戲說明 <span class="btn-action-emoji">ℹ️</span></span>
-            </button>
-        </div>
-
-        <!-- Game Interface (Hidden initially) -->
-        <div id="game-interface" class="hidden flex flex-col gap-0.5"> 
-            <!-- Consolidated turn message (constant) -->
-            <div id="game-message" class="text-center text-xl text-yellow-200 min-h-[1.2em] pb-0"></div> 
-            <!-- Feedback/Prompt message (temporary) -->
-            <div id="feedback-message" class="text-center text-yellow-300 text-lg min-h-[1em] pb-0"></div> 
-
-            <!-- NEW LOCATION FOR DICE DISPLAY (Always visible for first math question) -->
-            <div class="dice-container" id="main-dice-display-area">
-                <span id="last-roll-display" class="dice-display hidden"></span>
-            </div>
-
-            <div class="control-panel flex flex-col items-center gap-4">
-                <div class="flex flex-col items-center justify-center gap-2 flex-grow">
-                    <button id="roll-dice-btn" class="btn-primary w-full max-w-[200px]">擲骰子 <span class="btn-action-emoji">🎲</span></button>
+<!-- Player Selection and Game Start -->
+<div class="flex flex-col items-center gap-4 mb-6" id="start-screen">
+<p class="text-xl text-blue-200" id="player-count-label">請選擇玩家人數：</p>
+<select class="p-2 rounded-lg bg-gray-700 text-white" id="player-count-select">
+<option selected="" value="2">2 位玩家</option> <!-- Default to 2 players -->
+<option value="3">3 位玩家</option>
+<option value="4">4 位玩家</option>
+</select>
+<button class="btn-green" id="start-game-btn">
+<span class="btn-action-text">開始遊戲 <span class="btn-action-emoji">🚀</span></span>
+</button>
+<button class="btn-info" id="show-rules-btn">
+<span class="btn-action-text">遊戲說明 <span class="btn-action-emoji">ℹ️</span></span>
+</button>
+</div>
+<!-- Game Interface (Hidden initially) -->
+<div class="hidden flex flex-col gap-0.5" id="game-interface"><div id="responsive-layout"><div class="left-column"><h1 class="text-3xl font-bold text-center mb-6 text-yellow-300">🌌 太空漫遊 🚀</h1><!-- Consolidated turn message (constant) --><div class="text-center text-xl text-yellow-200 min-h-[1.2em] pb-0" id="game-message"></div><!-- Feedback/Prompt message (temporary) --><div class="text-center text-yellow-300 text-lg min-h-[1em] pb-0" id="feedback-message"></div><!-- NEW LOCATION FOR DICE DISPLAY (Always visible for first math question) --><div class="dice-container" id="main-dice-display-area">
+<span class="dice-display hidden" id="last-roll-display"></span>
+</div><div class="control-panel flex flex-col items-center gap-4">
+<div class="flex flex-col items-center justify-center gap-2 flex-grow">
+<button class="btn-primary w-full max-w-[200px]" id="roll-dice-btn">擲骰子 <span class="btn-action-emoji">🎲</span></button>
+</div>
+<!-- Display for current turn accumulated steps -->
+<div class="text-center text-lg text-purple-300 hidden w-full" id="current-turn-info">
+                    本回合累積步數：<strong class="font-bold text-yellow-200" id="accumulated-steps-display">0</strong> 步
                 </div>
-                
-                <!-- Display for current turn accumulated steps -->
-                <div id="current-turn-info" class="text-center text-lg text-purple-300 hidden w-full">
-                    本回合累積步數：<strong id="accumulated-steps-display" class="font-bold text-yellow-200">0</strong> 步
-                </div>
-
-                <div id="action-buttons" class="flex flex-row justify-center items-center gap-x-2 gap-y-0 hidden w-full">
-                    <button id="roll-again-btn" class="btn-secondary">
-                        <span class="btn-action-text">再擲 <span class="btn-action-emoji">🎲</span></span>
-                    </button>
-                    <span class="text-white text-lg font-bold">或</span>
-                    <button id="move-steps-btn" class="btn-green">
-                        <span class="btn-action-text">前進 <span class="btn-action-emoji">👉</span></span>
-                    </button>
-                </div>
-
-                <!-- Roll Sum Calculation Panel -->
-                <div id="roll-sum-panel" class="flex flex-col items-center gap-2 w-full hidden">
-                    <p id="roll-sum-question" class="text-lg text-yellow-100 text-center"></p>
-                    <div class="input-btn-group">
-                        <input type="number" id="roll-sum-input" inputmode="numeric" />
-                        <button id="check-roll-sum-btn" class="btn-confirm">確認 ✅</button>
-                    </div>
-                </div>
-
-                <!-- Addition (New Position) Panel -->
-                <div id="addition-panel" class="flex flex-col items-center gap-2 w-full hidden">
-                    <p id="addition-question" class="text-lg text-yellow-100 text-center"></p>
-                    <div class="input-btn-group">
-                        <input type="number" id="answer-input" inputmode="numeric" />
-                        <button id="check-answer-btn" class="btn-confirm">確認 ✅</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Roll 1 reminder moved below control panel -->
-            <p id="roll-1-reminder" class="text-center text-red-300 text-base mt-0 mb-0.1 hidden">💡 如果擲到 1 點，本回合步數歸 0，換下家！</p> 
-
-            <div id="player-info-section" class="flex flex-wrap justify-center items-center gap-x-6 gap-y-2 mb-4">
-                <!-- Player info will be dynamically generated here -->
-            </div>
-
-            <!-- Start Line Container moved outside control-panel, above game-board -->
-            <div id="start-line-container" class="w-full hidden">
-                <span id="start-line-label">起點</span>
-                <!-- Player tokens at start will be dynamically added here -->
-            </div>
-
-            <div class="game-board" id="game-board">
-                <!-- Board cells will be generated here by JavaScript -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Message Box for game announcements (e.g., win, incorrect answer) -->
-    <div id="message-box" class="message-box">
-        <h3 id="message-title"></h3>
-        <p id="message-content"></p>
-        <button id="close-message-btn">確定</button>
-    </div>
-
-    <!-- Game Rules Modal -->
-    <div id="rules-modal" class="rules-modal">
-        <div class="rules-content">
-            <button id="close-rules-btn" class="close-rules-btn">&times;</button>
-            <h2 class="text-center font-bold text-yellow-300">🌌 太空漫遊 🚀</h2>
-
-            <h3>遊戲目標</h3>
-            <ul>
-                <li>最先把太空船移動到 100 的玩家獲勝。</li>
-            </ul>
-
-            <h3>玩法說明</h3>
-            <ol>
-                <li>選擇 <strong>2 到 4 位玩家</strong>開始遊戲，玩家輪流進行。</li>
-                <li>點擊「<strong>擲骰子 🎲</strong>」開始回合。</li>
-            </ol>
-
-            <h3>擲骰規則</h3>
-            <ul>
-                <li><strong>擲出 1：</strong> 累積步數歸零，本回合結束，輪到下一位玩家。</li>
-                <li><strong>擲出 2–6：</strong>
-                    <ul>
-                        <li><strong>第一次擲骰（累積 0 步）：：</strong> 點數會直接計入「本回合累積步數」，無需計算。</li>
-                        <li><strong>非第一次擲骰（已有累積步數）：：</strong> 需心算「目前累積步數」加上「這次擲出的點數」。答對才能計入累積步數。</li>
-                    </ul>
-                </li>
-            </ul>
-
-            <h3>策略選擇</h3>
-            <ul>
-                <li><strong>擲出 2–6 時：</strong>
-                    <ul>
-                        <li>可以選擇「<strong>前進 👉</strong>」見好就收，將累積步數安全移動到太空船位置。</li>
-                        <li>也可以選擇「<strong>再擲 🎲</strong>」放手一搏，讓步數繼續增加，但會有額外風險。</li>
-                    </ul>
-                </li>
-                <li><strong>風險：：</strong> 若在累積步數後選擇「再擲 🎲」卻不幸擲出 1，本回合累積的所有步數將全數歸零，並輪到下一位玩家。</li>
-            </ul>
-
-            <h3>前進挑戰</h3>
-            <ul>
-                <li><strong>從起點出發 (位置 0)：：</strong> 太空船會直接移動到累積步數的位置，無需計算。</li>
-                <li><strong>從非起點位置前進：：</strong> 需心算「目前太空船位置」加上「本回合累積步數」的新位置。答對才前進。</li>
-            </ul>
-
-            <h3>勝利條件</h3>
-            <ul>
-                <li>任何玩家的太空船只要到達或超過數字 100，即為遊戲勝利者！</li>
-            </ul>
-
-            <p class="text-center font-bold text-lg text-purple-300">祝你玩得開心，也練好加法！ 🚀</p>
-        </div>
-    </div>
-
-    <!-- Copyright Statement -->
-    <div class="text-center text-gray-500 text-sm mt-4">
+<div class="flex flex-row justify-center items-center gap-x-2 gap-y-0 hidden w-full" id="action-buttons">
+<button class="btn-secondary" id="roll-again-btn">
+<span class="btn-action-text">再擲 <span class="btn-action-emoji">🎲</span></span>
+</button>
+<span class="text-white text-lg font-bold">或</span>
+<button class="btn-green" id="move-steps-btn">
+<span class="btn-action-text">前進 <span class="btn-action-emoji">👉</span></span>
+</button>
+</div>
+<!-- Roll Sum Calculation Panel -->
+<div class="flex flex-col items-center gap-2 w-full hidden" id="roll-sum-panel">
+<p class="text-lg text-yellow-100 text-center" id="roll-sum-question"></p>
+<div class="input-btn-group">
+<input id="roll-sum-input" inputmode="numeric" type="number"/>
+<button class="btn-confirm" id="check-roll-sum-btn">確認 ✅</button>
+</div>
+</div>
+<!-- Addition (New Position) Panel -->
+<div class="flex flex-col items-center gap-2 w-full hidden" id="addition-panel">
+<p class="text-lg text-yellow-100 text-center" id="addition-question"></p>
+<div class="input-btn-group">
+<input id="answer-input" inputmode="numeric" type="number"/>
+<button class="btn-confirm" id="check-answer-btn">確認 ✅</button>
+</div>
+</div>
+</div><!-- Roll 1 reminder moved below control panel --><p class="text-center text-red-300 text-base mt-0 mb-0.1 hidden" id="roll-1-reminder">💡 如果擲到 1 點，本回合步數歸 0，換下家！</p><div class="flex flex-wrap justify-center items-center gap-x-6 gap-y-2 mb-4" id="player-info-section">
+<!-- Player info will be dynamically generated here -->
+</div><!-- Start Line Container moved outside control-panel, above game-board --></div><div class="right-column"><div class="w-full hidden" id="start-line-container">
+<span id="start-line-label">起點</span>
+<!-- Player tokens at start will be dynamically added here -->
+</div><div class="game-board" id="game-board">
+<!-- Board cells will be generated here by JavaScript -->
+</div></div></div></div>
+</div>
+<!-- Message Box for game announcements (e.g., win, incorrect answer) -->
+<div class="message-box" id="message-box">
+<h3 id="message-title"></h3>
+<p id="message-content"></p>
+<button id="close-message-btn">確定</button>
+</div>
+<!-- Game Rules Modal -->
+<div class="rules-modal" id="rules-modal">
+<div class="rules-content">
+<button class="close-rules-btn" id="close-rules-btn">×</button>
+<h2 class="text-center font-bold text-yellow-300">🌌 太空漫遊 🚀</h2>
+<h3>遊戲目標</h3>
+<ul>
+<li>最先把太空船移動到 100 的玩家獲勝。</li>
+</ul>
+<h3>玩法說明</h3>
+<ol>
+<li>選擇 <strong>2 到 4 位玩家</strong>開始遊戲，玩家輪流進行。</li>
+<li>點擊「<strong>擲骰子 🎲</strong>」開始回合。</li>
+</ol>
+<h3>擲骰規則</h3>
+<ul>
+<li><strong>擲出 1：</strong> 累積步數歸零，本回合結束，輪到下一位玩家。</li>
+<li><strong>擲出 2–6：</strong>
+<ul>
+<li><strong>第一次擲骰（累積 0 步）：：</strong> 點數會直接計入「本回合累積步數」。</li>
+<li><strong>非第一次擲骰（已有累積步數）：：</strong> 玩家需心算「目前累積步數」加上「這次擲出的點數」，並輸入答案，答對才能計入累積步數。</li>
+</ul>
+</li>
+</ul>
+<h3>策略選擇</h3>
+<ul>
+<li><strong>擲出 2–6 時：</strong>
+<ul>
+<li>可以選擇「<strong>前進 👉</strong>」見好就收，將累積步數安全移動到新位置。</li>
+<li>也可以選擇「<strong>再擲 🎲</strong>」放手一搏，讓步數繼續增加，但會有額外風險。</li>
+</ul>
+</li>
+<li><strong>風險：：</strong> 若在累積步數後選擇「再擲 🎲」卻不幸擲出 1，本回合累積的所有步數將全數歸零，並輪到下一位玩家。</li>
+</ul>
+<h3>前進挑戰</h3>
+<ul>
+<li><strong>從起點出發 (位置 0)：：</strong> 太空船會直接移動到累積步數的位置。</li>
+<li><strong>從非起點位置前進：：</strong> 玩家需心算「目前太空船位置」加上「本回合累積步數」的新位置，並輸入答案，答對才前進。</li>
+</ul>
+<h3>勝利條件</h3>
+<ul>
+<li>任何玩家的太空船只要到達或超過數字 100，即為遊戲勝利者！</li>
+</ul>
+<p class="text-center font-bold text-lg text-purple-300">祝你玩得開心，也練好加法！ 🚀</p>
+</div>
+</div>
+<!-- Copyright Statement -->
+<div class="text-center text-gray-500 text-sm mt-4">
         © 2025 Christina Yu. All rights reserved.
     </div>
-
-    <script type="module">
+<script type="module">
         // Firebase imports (mandatory for Canvas environment, even if not actively used for game data)
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
@@ -1548,4 +1545,3 @@
     </script>
 </body>
 </html>
-
