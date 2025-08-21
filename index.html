@@ -585,11 +585,32 @@
     text-align: left;
   }
 }
+
+/* Reduce spacing between game-container, start-line-container, and game-board */
+#start-line-container {
+  margin-top: 6px !important;
+  margin-bottom: 6px !important;
+}
+.game-board {
+  margin-top: 6px !important;
+  margin-bottom: 6px !important;
+}
+
+/* Adjust spacing only for game messages and game-container padding */
+#game-message {
+  margin-bottom: 16px !important;
+}
+.game-container {
+  padding: 12px !important;
+}
 </style>
 </head>
 <body>
+<!-- Title + Subtitle OUTSIDE the start box -->
+<h2 class="text-3xl font-bold text-center text-yellow-300" id="game-title">
+  🌌 太空漫遊 🚀
+</h2>
 <div class="game-container">
-
 <!-- Player Selection and Game Start -->
 <div class="flex flex-col items-center gap-4 mb-6" id="start-screen">
 <p class="text-xl text-blue-200" id="player-count-label">請選擇玩家人數：</p>
@@ -606,7 +627,7 @@
 </button>
 </div>
 <!-- Game Interface (Hidden initially) -->
-<div class="hidden flex flex-col gap-0.5" id="game-interface"><div id="responsive-layout"><div class="left-column"><h1 class="text-3xl font-bold text-center mb-6 text-yellow-300">🌌 太空漫遊 🚀</h1><!-- Consolidated turn message (constant) --><div class="text-center text-xl text-yellow-200 min-h-[1.2em] pb-0" id="game-message"></div><!-- Feedback/Prompt message (temporary) --><div class="text-center text-yellow-300 text-lg min-h-[1em] pb-0" id="feedback-message"></div><!-- NEW LOCATION FOR DICE DISPLAY (Always visible for first math question) --><div class="dice-container" id="main-dice-display-area">
+<div class="hidden flex flex-col gap-0.5" id="game-interface"><div id="responsive-layout"><div class="left-column"><!-- Consolidated turn message (constant) --><div class="text-center text-xl text-yellow-200 min-h-[1.2em] pb-0" id="game-message"></div><!-- Feedback/Prompt message (temporary) --><div class="text-center text-yellow-300 text-lg min-h-[1em] pb-0" id="feedback-message"></div><!-- NEW LOCATION FOR DICE DISPLAY (Always visible for first math question) --><div class="dice-container" id="main-dice-display-area">
 <span class="dice-display hidden" id="last-roll-display"></span>
 </div><div class="control-panel flex flex-col items-center gap-4">
 <div class="flex flex-col items-center justify-center gap-2 flex-grow">
